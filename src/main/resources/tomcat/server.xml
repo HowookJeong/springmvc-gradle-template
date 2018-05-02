@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Server port="8005" shutdown="SHUTDOWN">
+  <Listener className="org.apache.catalina.startup.VersionLoggerListener" />
+  <Listener className="org.apache.catalina.core.AprLifecycleListener" SSLEngine="on" />
+  <Listener className="org.apache.catalina.core.JreMemoryLeakPreventionListener" />
+  <Listener className="org.apache.catalina.mbeans.GlobalResourcesLifecycleListener" />
+  <Listener className="org.apache.catalina.core.ThreadLocalLeakPreventionListener" />
+
+  <Service name="Catalina">
+    <Connector port="8080"
+      enableLookups="false"
+      protocol="HTTP/1.1"
+      URIEncoding="UTF-8"
+      compression="on"
+      connectionTimeout="5000"
+      disableUploadTimeout="false"
+      maxHttpHeaderSize="8192"
+      maxSpareThreads="75"
+      maxThreads="1024"
+      minSpareThreads="25" />
+
+    <Engine name="Catalina" defaultHost="localhost">
+      <Host name="localhost"  appBase="webapps/springmvc-gradle-template.war"
+        unpackWARs="false" autoDeploy="false">
+        <Context docBase="" path="/" reloadable="false">
+          <WatchedResource>WEB-INF/web.xml</WatchedResource>
+        </Context>
+      </Host>
+    </Engine>
+  </Service>
+</Server>

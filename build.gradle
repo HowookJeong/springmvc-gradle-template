@@ -1,0 +1,82 @@
+apply plugin: 'java'
+apply plugin: 'war'
+apply plugin: "com.bmuschko.tomcat"
+
+group = 'org.project.web'
+version = '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+repositories {
+    maven { url "http://repo.maven.apache.org/maven2" }
+}
+dependencies {
+    def tomcatVersion = '7.0.59'
+    def springVersionn = '4.3.16.RELEASE'
+    tomcat "org.apache.tomcat.embed:tomcat-embed-core:${tomcatVersion}",
+      "org.apache.tomcat.embed:tomcat-embed-logging-juli:${tomcatVersion}",
+      "org.apache.tomcat.embed:tomcat-embed-jasper:${tomcatVersion}"
+
+    compile group: 'org.springframework', name: 'spring-core', version: "${springVersionn}"
+    compile group: 'org.springframework', name: 'spring-context', version: "${springVersionn}"
+    compile group: 'org.springframework', name: 'spring-beans', version: "${springVersionn}"
+    compile group: 'org.springframework', name: 'spring-web', version: "${springVersionn}"
+    compile group: 'org.springframework', name: 'spring-webmvc', version: "${springVersionn}"
+    compile group: 'org.springframework', name: 'spring-aop', version: "${springVersionn}"
+    compile group: 'org.springframework', name: 'spring-context-support', version: "${springVersionn}"
+    compile group: 'org.springframework', name: 'spring-aspects', version: "${springVersionn}"
+    compile group: 'org.springframework', name: 'spring-tx', version: "${springVersionn}"
+    compile group: 'org.springframework', name: 'spring-jdbc', version: "${springVersionn}"
+    compile group: 'org.springframework', name: 'spring-orm', version: "${springVersionn}"
+    compile group: 'org.springframework', name: 'spring-expression', version: "${springVersionn}"
+    compile group: 'org.springframework', name: 'spring-jms', version: "${springVersionn}"
+    compile group: 'org.springframework', name: 'spring-oxm', version: "${springVersionn}"
+    compile group: 'org.springframework', name: 'spring-webmvc-portlet', version: "${springVersionn}"
+    compile group: 'org.springframework', name: 'spring-messaging', version: "${springVersionn}"
+    compile group: 'org.springframework', name: 'spring-websocket', version: "${springVersionn}"
+    compile group: 'org.springframework', name: 'spring-instrument', version: "${springVersionn}"
+    compile group: 'org.springframework', name: 'spring-instrument-tomcat', version: "${springVersionn}"
+    compile group: 'org.springframework', name: 'spring-test', version: "${springVersionn}"
+    compile group: 'org.mybatis', name: 'mybatis', version: '3.4.0'
+    compile group: 'org.mybatis', name: 'mybatis-spring', version: '1.3.0'
+    compile group: 'commons-dbcp', name: 'commons-dbcp', version: '1.4'
+    compile group: 'mysql', name: 'mysql-connector-java', version: '5.1.38'
+    compile group: 'org.slf4j', name: 'slf4j-api', version: '1.6.2'
+    compile group: 'javax.inject', name: 'javax.inject', version: '1'
+    compile group: 'javax.servlet', name: 'jstl', version: '1.2'
+    compile group: 'org.elasticsearch', name: 'elasticsearch', version: '2.2.1'
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.7.3'
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: '2.7.3'
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.7.3'
+    compile group: 'commons-collections', name: 'commons-collections', version: '3.2.2'
+    compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.4'
+    runtime group: 'org.slf4j', name: 'jcl-over-slf4j', version: '1.6.2'
+    runtime group: 'org.slf4j', name: 'slf4j-log4j12', version: '1.6.2'
+    runtime(group: 'log4j', name: 'log4j', version: '1.2.17') {
+        exclude(module: 'mail')
+        exclude(module: 'jms')
+        exclude(module: 'jmxtools')
+        exclude(module: 'jmxri')
+    }
+    testCompile group: 'junit', name: 'junit', version: '4.8.2'
+//    providedCompile group: 'org.apache.tomcat.maven', name: 'tomcat7-maven-plugin', version:'2.2'
+    providedCompile group: 'javax.servlet', name: 'servlet-api', version: '2.5'
+    providedCompile group: 'javax.servlet.jsp', name: 'jsp-api', version: '2.2'
+}
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+
+    dependencies {
+        classpath 'com.bmuschko:gradle-tomcat-plugin:2.2.5'
+    }
+}
+
+tomcatRunWar.contextPath = '/'
+tomcatRun.contextPath = '/'

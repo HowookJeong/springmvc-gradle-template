@@ -1,0 +1,44 @@
+Tomcat 9.0.7
+JDK 8
+
+$ vi conf/server.xml
+$ bin/startup.sh
+$ bin/shutdown.sh
+
+Case 1 - server.xml)
+http://localhost:8080/example
+      <Host name="localhost"  appBase="webapps/springmvc-gradle-template.war"
+        unpackWARs="false" autoDeploy="false" deployOnStartup="true">
+        <Context docBase="" path="" reloadable="false" />
+      </Host>
+
+      <Host name="localhost"  appBase="webapps"
+        unpackWARs="false" autoDeploy="false" deployOnStartup="false">
+        <Context docBase="springmvc-gradle-template" path="" reloadable="false" />
+      </Host>
+
+Case 2 - server.xml)
+http://localhost:8080/springmvc-gradle-template/example
+      <Host name="localhost"  appBase="webapps"
+        unpackWARs="false" autoDeploy="false" deployOnStartup="true">
+        <Context docBase="" path="" reloadable="false" />
+      </Host>
+
+Case 3 - server.xml)
+// twice loading (Don't use it)
+http://localhost:8080/example
+http://localhost:8080/springmvc-gradle-template/example
+      <Host name="localhost"  appBase="webapps"
+        unpackWARs="false" autoDeploy="false" deployOnStartup="true">
+        <Context docBase="springmvc-gradle-template" path="" reloadable="false" />
+      </Host>
+
+Case 4 - server.xml)
+Not working
+      <Host name="localhost"  appBase="webapps"
+        unpackWARs="false" autoDeploy="false" deployOnStartup="false">
+        <Context docBase="" path="" reloadable="false" />
+      </Host>
+
+References
+- https://tomcat.apache.org/tomcat-9.0-doc/config/context.html
